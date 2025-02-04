@@ -1,3 +1,68 @@
+
+# Notes
+
+## of and from methods
+```ts
+constructor() {      
+      // strem of data
+      // notify all subsribers
+      // number is an observables with numbers
+      // of creates observables from values.
+      //const numbers$ = of([1,2,3,4,5]);
+
+      // one by one observable
+      const numbers$ = from([1,2,3,4,5]);
+
+      numbers$.subscribe((data) => {
+        console.log('subscriber', data);
+        this.data = data;
+      });
+    }
+```
+
+## converting js data
+```ts
+  // converting data.
+    constructor() {
+      const users = [
+        {id: '1', name: 'John', age: 30},
+        {id: '2', name: 'jack', age: 35},
+        {id: '3', name: 'Mike', age: 25}
+      ]
+
+      const messagePromise = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve('Promise resovled');
+        }, 1000);
+      });
+
+      // create stream of users.
+      // with of or from
+      const users$ = of (users); // observables array of users
+      const message$ = from(messagePromise); // with promise we have to use from.
+      const bodyClick$ = fromEvent(document, 'click');
+
+      users$.subscribe((data) => {
+        console.log(data);
+        //this.data = data;
+      });
+
+      message$.subscribe((data) => {
+        console.log(data);
+      });
+      
+      bodyClick$.subscribe((event) => {
+        console.log(event);
+      });
+
+    }
+```
+
+## observables vs promises.
+
+```ts
+```
+
 # RxjsDeepdiv
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.11.

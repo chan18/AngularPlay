@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { of,from } from 'rxjs'
+import { of,from, fromEvent } from 'rxjs'
 
 @Component({
   selector: 'app-root',
@@ -10,26 +10,15 @@ import { of,from } from 'rxjs'
 })
 export class AppComponent {
 
-    data: number = 0;
-
-    constructor() {      
-      // strem of data
-      // notify all subsribers
-      // number is an observables with numbers
-      // of creates observables from values.
-      //const numbers$ = of([1,2,3,4,5]);
-
-      // one by one observable
-      const numbers$ = from([1,2,3,4,5]);
-
-      numbers$.subscribe((data) => {
-        console.log('subscriber', data);
-        this.data = data;
-      });
+    // observables vs promises.
+    constructor() {
+      const users = [
+        {id: '1', name: 'John', age: 30},
+        {id: '2', name: 'jack', age: 35},
+        {id: '3', name: 'Mike', age: 25}
+      ]
 
       
-
-
     }
 
 }
