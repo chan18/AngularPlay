@@ -58,9 +58,110 @@ constructor() {
     }
 ```
 
+## next, error and complete.
+``` ts
+// next, error and complete.
+    constructor() {
+      const messagePromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // resolve('Promise resovled');
+          reject('Server error');
+        }, 1000);
+      });
+
+      const message$ = from(messagePromise);
+
+      message$.subscribe({
+        next: (message) => { // resolved promise. sucess state
+        console.log('message', message);
+        },
+        error: (err) => { // reject promise. error state
+          console.log('err', err);
+        },
+        complete: () => {
+          console.log('it is done');
+        },
+      });
+    }
+```
+
 ## observables vs promises.
 
 ```ts
+
+```
+
+
+# custom observable
+```ts
+ const users = [
+        {id: '1', name: 'John', age: 30},
+        {id: '2', name: 'jack', age: 35},
+        {id: '3', name: 'Mike', age: 25}
+      ]
+
+      const users$ = new Observable((observer) => {
+        observer.next(1);
+        observer.next(2);
+        observer.next(3);
+        observer.next(4);
+        observer.complete(); // subscriber complete state.
+        observer.next(5); // will not be reflected in subscriber.
+      });      
+
+      users$.subscribe({
+        next: (users) => {
+          console.log('users', users);
+        },
+        complete: () => {
+          console.log('completed');
+        },
+      });
+```
+
+
+# custom subscriber
+```ts
+constructor() {
+    // custom subscriber
+    const numbers$ = from([1,2,3,4,5]);
+
+    numbers$.subscribe(new CustomObserver());
+}
+
+import { Observable } from "rxjs";
+
+export class CustomObserver implements Observable<number> {
+    next(data: number) {
+        console.log('next', data);
+    }
+    error(error: string) {
+        console.log('next', error);
+    }
+    complete(data: number) {
+        console.log('completed');
+    }
+}
+```
+
+# observables are async
+```ts
+// observables are async
+    constructor() {
+      /*
+        console.log(1);
+        promise.then(resposne => {
+          console.log(resposne);
+        });
+        console.log(2);
+      */
+
+      const numbers$ = from([1,2,3,4,5]);
+
+      numbers$.subscribe((data) => {
+        console.log('subscriber', data);
+      });
+    }
 ```
 
 # RxjsDeepdiv

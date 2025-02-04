@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { of,from, fromEvent } from 'rxjs'
+import { of,from, fromEvent, Observable } from 'rxjs'
 
 @Component({
   selector: 'app-root',
@@ -10,15 +10,20 @@ import { of,from, fromEvent } from 'rxjs'
 })
 export class AppComponent {
 
-    // observables vs promises.
+    // observables are async
     constructor() {
-      const users = [
-        {id: '1', name: 'John', age: 30},
-        {id: '2', name: 'jack', age: 35},
-        {id: '3', name: 'Mike', age: 25}
-      ]
+      /*
+        console.log(1);
+        promise.then(resposne => {
+          console.log(resposne);
+        });
+        console.log(2);
+      */
 
-      
+      const numbers$ = from([1,2,3,4,5]);
+
+      numbers$.subscribe((data) => {
+        console.log('subscriber', data);
+      });
     }
-
 }
